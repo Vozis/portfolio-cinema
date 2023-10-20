@@ -1,0 +1,32 @@
+.menu {
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style-type: none;
+
+  @media (max-width: 1024px) {
+  }
+}
+
+.menuWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  @apply animate-fade;
+
+
+  @media (max-width: 1024px) {
+    @apply absolute border border-gray-700 rounded-layout bg-gray-800 z-50;
+    padding: 5px;
+    right: 40px;
+    top: 100px;
+  }
+}

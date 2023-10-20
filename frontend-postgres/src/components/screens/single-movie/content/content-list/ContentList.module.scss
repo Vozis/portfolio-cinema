@@ -1,0 +1,16 @@
+.list {
+  @apply flex items-center mb-2;
+
+
+  > .name {
+    @apply mr-2 text-white text-opacity-60;
+  }
+
+  > .links {
+    @apply text-white text-opacity-90;
+
+    > a {
+      @apply text-link p-1;
+    }
+  }
+}

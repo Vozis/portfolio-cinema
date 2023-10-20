@@ -1,0 +1,11 @@
+.search {
+
+
+  &:focus-within {
+    @apply border-gray-600;
+
+    > svg {
+      @apply fill-gray-500
+    }
+  }
+}

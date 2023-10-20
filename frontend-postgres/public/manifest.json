@@ -1,0 +1,47 @@
+{
+  "short_name": "Online cinema",
+  "name": "Online cinema",
+  "icons": [
+    {
+      "src": "/favicons/apple-touch-icon-57x57.png",
+      "type": "image/png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-60x60.png",
+      "type": "image/png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-76x76.png",
+      "type": "image/png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-114x114.png",
+      "type": "image/png",
+      "sizes": "114x114"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-180x180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#171717",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#D71F27",
+  "description": "Watch Movie App movies and tv shows online or streaming right from your browser."
+}

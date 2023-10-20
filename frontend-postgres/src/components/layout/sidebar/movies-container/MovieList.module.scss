@@ -1,0 +1,23 @@
+.list {
+  @apply lg:flex-col flex gap-4 mb-4;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+  }
+}
+
+.item {
+  display: flex;
+  gap: 10px;
+
+  @media (max-width: 769px) {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+    @media (max-width: 425px) {
+      flex-direction: row;
+      margin-left: 20px;
+    }
+}

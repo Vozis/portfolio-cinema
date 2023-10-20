@@ -1,0 +1,78 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres-db_app
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    networks:
+      - cinema-network
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  api:
+    container_name: cinema-api_app
+    build:
+      context: back-postgres
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      - server:/usr/src/api
+      - /app/node_modules
+    env_file:
+      - ./back-postgres/.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public&connect_timeout=300
+    ports:
+      - 4200:4200
+    networks:
+      - cinema-network
+    depends_on:
+      - postgres
+
+  web:
+    container_name: cinema-web_app
+    build:
+      context: frontend-postgres
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      - web:/usr/src/web
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    networks:
+      - cinema-network
+
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    container_name: pgadmin4_container
+#    restart: always
+#    ports:
+#      - 5050:80
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
+#      PGADMIN_DEFAULT_PASSWORD: root
+#    volumes:
+#      - pgadmin-data:/var/lib/pgadmin
+
+
+volumes:
+  db:
+  pgadmin-data:
+  server:
+  web:
+
+networks:
+  cinema-network:

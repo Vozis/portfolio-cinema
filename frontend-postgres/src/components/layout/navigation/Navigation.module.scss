@@ -1,0 +1,7 @@
+.navigation {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  @apply border-r border-r-gray-800 px-4;
+}

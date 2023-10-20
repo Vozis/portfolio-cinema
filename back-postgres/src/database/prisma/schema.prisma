@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
+  binaryTargets   = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String  @db.VarChar(200)
+  roles    Role    @default(USER)
+  isAdmin  Boolean @default(false) @map("is_admin")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ratings Rating[]
+
+  favorites Movie[]
+
+  @@map("users")
+}
+
+model Genre {
+  id Int @id @default(autoincrement())
+
+  name        String
+  slug        String @unique
+  description String
+  icon        String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  movies Movie[]
+
+  @@map("genres")
+}
+
+model Actor {
+  id Int @id @default(autoincrement())
+
+  name        String
+  slug        String @unique
+  photos      File[]
+  countMovies Int    @default(0) @map("count_movies")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  movies Movie[]
+
+  @@map("actors")
+}
+
+model Movie {
+  id Int @id @default(autoincrement())
+
+  title       String
+  slug        String @unique
+  description String
+
+  year     Int
+  duration Int
+  country  String
+
+  countOpened Int @default(0) @map("count_opened")
+
+  isSendtelegram Boolean @default(false) @map("is_send")
+
+  posters    File[] @relation("posters")
+  bigPosters File[] @relation("big_posters")
+  videos     File[] @relation("videos")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ratings       Rating[]
+  averageRating Int
+
+  genres Genre[]
+
+  actors Actor[]
+
+  users User[]
+
+  @@map("movies")
+}
+
+model Rating {
+  id    Int @id @default(autoincrement())
+  value Int
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId Int
+
+  movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  movieId Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([movieId, userId], name: "compositeId")
+  @@map("ratings")
+}
+
+model File {
+  id           Int    @id @default(autoincrement())
+  name         String
+  originalName String
+  url          String @unique
+  folder       String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  photos  Actor? @relation(fields: [photoId], references: [id])
+  photoId Int?
+
+  posters  Movie? @relation("posters", fields: [posterId], references: [id])
+  posterId Int?
+
+  bigPosters  Movie? @relation("big_posters", fields: [bigPosterId], references: [id])
+  bigPosterId Int?
+
+  videos  Movie? @relation("videos", fields: [videoId], references: [id])
+  videoId Int?
+
+  @@map("files")
+}
+
+enum Role {
+  ADMIN
+  USER
+}

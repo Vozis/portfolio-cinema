@@ -1,0 +1,12 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: scroll;
+  @apply border-l border-l-gray-800 px-4;
+
+  @media (max-width: 1024px) {
+    border: none;
+    order: 1;
+  }
+}
