@@ -4,9 +4,9 @@
   "description": "Dockerized environment with a database, a back-end and a front-end application.",
   "scripts": {
     "build:back": "docker-compose build api",
-    "build:front": "docker-compose build frontend-postgres",
+    "build:front": "docker-compose build web",
     "start:back": "docker-compose api --renew-anon-volumes",
-    "start:front": "docker-compose up frontend-postgres --renew-anon-volumes",
+    "start:front": "docker-compose up web --renew-anon-volumes",
     "clean": "docker-compose down -v"
   },
   "author": "Ilya",

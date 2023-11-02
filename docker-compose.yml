@@ -16,19 +16,20 @@ services:
     networks:
       - cinema-network
     volumes:
-      - db:/var/lib/postgresql/data
+      - cinema-db:/var/lib/postgresql/data
 
   api:
     container_name: cinema-api_app
+    stdin_open: true
     build:
-      context: back-postgres
-      target: dev
+      context: server
+      target: prod
       dockerfile: Dockerfile
     volumes:
-      - server:/usr/src/api
-      - /app/node_modules
+      - cinema-server:/usr/src/api
+      - cinema-server-node-modules:/usr/src/api/node_modules
     env_file:
-      - ./back-postgres/.env
+      - server/.env
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -43,36 +44,49 @@ services:
 
   web:
     container_name: cinema-web_app
+    stdin_open: true
     build:
-      context: frontend-postgres
-      target: dev
+      context: web
+      target: prod
       dockerfile: Dockerfile
+    env_file:
+      - web/.env
+#    environment:
+#      SERVER_HOST: 0.0.0.0
     volumes:
-      - web:/usr/src/web
-      - /app/node_modules
+      - cinema-web:/usr/src/app
+      - cinema-web-node-modules:/usr/src/app/node_modules
     ports:
       - 3000:3000
     networks:
       - cinema-network
+    depends_on:
+      - postgres
+      - api
 
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    container_name: pgadmin4_container
-#    restart: always
-#    ports:
-#      - 5050:80
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
-#      PGADMIN_DEFAULT_PASSWORD: root
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - 5050:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - cinema-pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
 
 
 volumes:
-  db:
-  pgadmin-data:
-  server:
-  web:
+  cinema-db:
+  cinema-pgadmin-data:
+  cinema-server:
+  cinema-web:
+  cinema-web-node-modules: null
+  cinema-server-node-modules: null
 
 networks:
   cinema-network:
+#    driver: bridge

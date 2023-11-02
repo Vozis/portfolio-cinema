@@ -69,7 +69,7 @@ export class ActorService {
     const actor = await this.prisma.actor.create({
       data: {
         name: '',
-        slug: uuidv4(),
+        slug: uuidv4()
       },
     });
 
