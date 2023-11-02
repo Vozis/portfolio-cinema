@@ -2,41 +2,37 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import CatalogMovies from '@/ui/catalog-movies/CatalogMovies';
 
-import { IGenre } from '@/shared/types/genre.types';
+import { IActor } from '@/shared/types/movie.types';
 import { IMovie } from '@/shared/types/movie.types';
 
 import ErrorPage from '@/pages/404';
-import { GenreService } from '@/services/genre.service';
+import { ActorService } from '@/services/actor.service';
 import { MovieService } from '@/services/movie.service';
 
-interface IGenrePage {
+interface IActorPage {
   movies: IMovie[];
-  genre: IGenre | undefined;
+  actor: IActor | undefined;
 }
 
-const GenrePage: NextPage<IGenrePage> = ({ movies, genre }) => {
-  return genre ? (
-    <CatalogMovies
-      title={genre.name}
-      description={genre.description}
-      movies={movies || []}
-    />
+const ActorPage: NextPage<IActorPage> = ({ movies, actor }) => {
+  return actor ? (
+    <CatalogMovies title={actor.name} movies={movies || []} />
   ) : (
     <ErrorPage />
   );
 };
 
-export default GenrePage;
+export default ActorPage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
-    const { data: genre } = await GenreService.getBySlug(String(params?.slug));
+    const { data: actor } = await ActorService.getBySlug(String(params?.slug));
 
-    const { data: movies } = await MovieService.getByGenres([genre.id]);
+    const { data: movies } = await MovieService.getByActor(actor.id);
 
     return {
-      props: { movies, genre },
-      revalidate: 60,
+      props: { movies, actor },
+      revalidate: 10,
     };
   } catch (error) {
     return {
@@ -47,13 +43,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const { data: genres } = await GenreService.getAll();
+    const { data: actors } = await ActorService.getAll();
 
-    const paths = genres.map(genre => ({
+    const paths = actors.map(actor => ({
       params: {
-        slug: genre.slug,
+        slug: actor.slug,
       },
     }));
+
     return {
       paths,
       fallback: 'blocking',
