@@ -76,6 +76,7 @@ COPY --chown=node:node --from=build /usr/src/api/dist ./dist
 COPY --chown=node:node --from=build /usr/src/api/prisma ./prisma
 #
 EXPOSE 4200
+
 ENV PORT 4200
 ENV HOSTNAME "0.0.0.0"
 

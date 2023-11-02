@@ -6,7 +6,7 @@ services:
     image: postgres
     restart: always
     env_file:
-      - .env
+      - server/.env
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -20,7 +20,7 @@ services:
 
   api:
     container_name: cinema-api_app
-    stdin_open: true
+#    stdin_open: true
     build:
       context: server
       target: prod
@@ -44,7 +44,7 @@ services:
 
   web:
     container_name: cinema-web_app
-    stdin_open: true
+#    stdin_open: true
     build:
       context: web
       target: prod
@@ -53,6 +53,7 @@ services:
       - web/.env
 #    environment:
 #      SERVER_HOST: 0.0.0.0
+#      REACT_APP_ENV: development
     volumes:
       - cinema-web:/usr/src/app
       - cinema-web-node-modules:/usr/src/app/node_modules
@@ -89,4 +90,4 @@ volumes:
 
 networks:
   cinema-network:
-#    driver: bridge
+    driver: bridge

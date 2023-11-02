@@ -9,7 +9,7 @@ import { removeTokensFromStorage } from '@/services/auth/auth.helper';
 import { AuthService } from '@/services/auth/auth.service';
 
 const axiosOptions = {
-  baseURL: API_URL,
+  baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,
   headers: getContentType(),
 };
 
