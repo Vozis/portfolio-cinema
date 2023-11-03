@@ -1,22 +1,22 @@
 version: '3.9'
 
 services:
-  postgres:
-    container_name: postgres-db_app
-    image: postgres:13.3
-    restart: always
-    env_file:
-      - server/.env
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - 5432:5432
-    networks:
-      - cinema-network
-    volumes:
-      - cinema-db:/var/lib/postgresql/data
+#  postgres:
+#    container_name: postgres-db_app
+#    image: postgres:13.3
+#    restart: always
+#    env_file:
+#      - server/.env
+#    environment:
+#      POSTGRES_DB: ${POSTGRES_DB}
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#    ports:
+#      - 5432:5432
+#    networks:
+#      - cinema-network
+#    volumes:
+#      - cinema-db:/var/lib/postgresql/data
 
   api:
     container_name: cinema-api_app
@@ -28,6 +28,7 @@ services:
     volumes:
       - cinema-server:/usr/src/api
       - cinema-server-node-modules:/usr/src/api/node_modules
+#      - /Documents/cinema/uploads/:/usr/src/api/uploads
     env_file:
       - server/.env
     environment:
@@ -39,8 +40,8 @@ services:
       - 4200:4200
     networks:
       - cinema-network
-    depends_on:
-      - postgres
+#    depends_on:
+#      - postgres
 
   web:
     container_name: cinema-web_app
@@ -62,27 +63,27 @@ services:
     networks:
       - cinema-network
     depends_on:
-      - postgres
+#      - postgres
       - api
 
-  pgadmin:
-    image: dpage/pgadmin4:7.1
-    container_name: pgadmin4_container
-    restart: always
-    ports:
-      - 5050:80
-    environment:
-      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    volumes:
-      - cinema-pgadmin-data:/var/lib/pgadmin
-    depends_on:
-      - postgres
+#  pgadmin:
+#    image: dpage/pgadmin4:7.1
+#    container_name: pgadmin4_container
+#    restart: always
+#    ports:
+#      - 5050:80
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
+#      PGADMIN_DEFAULT_PASSWORD: root
+#    volumes:
+#      - cinema-pgadmin-data:/var/lib/pgadmin
+#    depends_on:
+#      - postgres
 
 
 volumes:
-  cinema-db:
-  cinema-pgadmin-data:
+#  cinema-db:
+#  cinema-pgadmin-data:
   cinema-server:
   cinema-web:
   cinema-web-node-modules: null

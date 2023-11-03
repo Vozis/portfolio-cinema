@@ -73,6 +73,7 @@ COPY --chown=node:node --from=build /usr/src/api/package*.json .
 COPY --chown=node:node --from=build /usr/src/api/.env .env
 COPY --chown=node:node --from=build /usr/src/api/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/api/dist ./dist
+COPY --chown=node:node --from=build /usr/src/api/uploads ./uploads
 COPY --chown=node:node --from=build /usr/src/api/prisma ./prisma
 #
 EXPOSE 4200
