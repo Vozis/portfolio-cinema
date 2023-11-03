@@ -3,7 +3,7 @@ version: '3.9'
 services:
   postgres:
     container_name: postgres-db_app
-    image: postgres13.3
+    image: postgres:13.3
     restart: always
     env_file:
       - server/.env
