@@ -14,16 +14,30 @@ import {
   IMovieEditInput,
 } from '@/screens/admin/movie-edit/movie-edit.interface';
 import { MovieService } from '@/services/movie.service';
+import { ActorService } from "@/services/actor.service";
 
 export const useMovieEdit = (setValue: UseFormSetValue<IMovieEditInput>) => {
   const { query, push } = useRouter();
 
   const movieId = Number(query.id);
 
+  const { isLoading } = useQuery(
+    ['get-movie-by-id', movieId],
+    () => MovieService.getById(movieId),
+    {
+      onSuccess: ({ data }) => {
+        getKeys(data).forEach(key => {
+          setValue(key, data[key]);
+        });
+      },
+      onError: error => {
+        toastError(error, 'Get Movie');
+      },
+      enabled: !!query.id,
+    },
+  );
 
-
-
-  const { mutateAsync, isLoading } = useMutation(
+  const { mutateAsync } = useMutation(
     ['update-movie', movieId],
     (data: IMovieEditForm) => MovieService.update(movieId, data),
     {
@@ -43,6 +57,8 @@ export const useMovieEdit = (setValue: UseFormSetValue<IMovieEditInput>) => {
     const resultPosters = data.posters.map(item => item.id);
     const resultBigPosters = data.bigPosters.map(item => item.id);
     const resultVideos = data.videos.map(item => item.id);
+    const resultGenres = data.genres.map(item => item.id);
+    const resultActors = data.actors.map(item => item.id);
 
     const uploadData: IMovieEditForm = {
       ...data,
@@ -51,6 +67,8 @@ export const useMovieEdit = (setValue: UseFormSetValue<IMovieEditInput>) => {
       posters: resultPosters,
       bigPosters: resultBigPosters,
       videos: resultVideos,
+      genres: resultGenres,
+      actors: resultActors,
     };
 
     await mutateAsync(uploadData);

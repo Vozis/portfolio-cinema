@@ -25,6 +25,7 @@ export interface IActor {
   id: number;
   name: string;
   photos: IFile[];
+  movies: IMovie[];
   slug: string;
   countMovies: number;
 }

@@ -17,9 +17,18 @@ export class FileService {
     });
   }
 
+  async getFile(id: number) {
+    return this.prisma.file.findUnique({
+      where: { id },
+    });
+  }
+
   async saveFiles(files: Express.Multer.File[], folder: string = 'default') {
     const uploadedFolder = `${path}/uploads/${folder}`;
 
+    // console.log('uploadedFolder: ', uploadedFolder);
+
+    // console.log('files from api fileService: ', files);
     await ensureDir(uploadedFolder);
 
     const response = await Promise.all(
@@ -40,6 +49,8 @@ export class FileService {
 
     return await Promise.all(
       response.map(async data => {
+        // console.log('data: ', data);
+
         return this.prisma.file.create({
           data: {
             ...data,

@@ -162,27 +162,43 @@ export class MovieService {
     return movie.id;
   }
 
-  async update(id: number, dto: CreateMovieDto) {
-    if (dto.slug) {
-      const oldMovie = await this.prisma.movie.findUnique({
-        where: { slug: dto.slug },
-      });
+  async update(id: number, dto: CreateMovieDto){
 
-      if (oldMovie) throw new BadRequestException('Movie already exists');
+
+    const oldMovie = await this.getById(id);
+
+    // const newActorPhoto = await this.
+
+    // console.log(dto);
+
+    for (const photo of oldMovie.posters) {
+      for (const item of dto.posters) {
+        if (item === photo.id && oldMovie.slug === dto.slug) {
+          // console.log('ok');
+          throw new BadRequestException('Movie already exists');
+        }
+      }
     }
 
-    const movie = await this.prisma.movie.findUnique({
-      where: { id },
-    });
+    // if (dto.slug) {
+    //   const oldMovie = await this.prisma.movie.findUnique({
+    //     where: { slug: dto.slug },
+    //   });
+    //
+    //   if (oldMovie) throw new BadRequestException('Movie already exists');
+    // }
 
-    //
-    // for (const key in dto) {
-    //   if (typeof dto[key] === 'object') {
-    //
+    // for (const photo of oldMovie.bigPosters) {
+    //   for (const item of dto.bigPosters) {
+    //     if (item === photo.id) {
+    //       // console.log('ok');
+    //       throw new BadRequestException('Movie already exists');
+    //     }
     //   }
     // }
 
-    await this.prisma.movie.update({
+
+     await this.prisma.movie.update({
       where: { id },
       data: {
         title: dto.title,
@@ -212,6 +228,7 @@ export class MovieService {
           connect: dto.actors.map(id => ({ id })),
         },
       },
+
     });
 
     await this.actorService.updateCountMovies();

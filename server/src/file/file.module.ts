@@ -7,5 +7,6 @@ import { PrismaService } from '../prisma.service';
 @Module({
   controllers: [FileController],
   providers: [FileService, PrismaService],
+  exports: [FileService],
 })
 export class FileModule {}

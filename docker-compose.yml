@@ -1,26 +1,8 @@
 version: '3.9'
 
 services:
-#  postgres:
-#    container_name: postgres-db_app
-#    image: postgres:13.3
-#    restart: always
-#    env_file:
-#      - server/.env
-#    environment:
-#      POSTGRES_DB: ${POSTGRES_DB}
-#      POSTGRES_USER: ${POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#    ports:
-#      - 5432:5432
-#    networks:
-#      - cinema-network
-#    volumes:
-#      - cinema-db:/var/lib/postgresql/data
-
   api:
     container_name: cinema-api_app
-#    stdin_open: true
     build:
       context: server
       target: prod
@@ -28,6 +10,7 @@ services:
     volumes:
       - cinema-server:/usr/src/api
       - cinema-server-node-modules:/usr/src/api/node_modules
+      - uploaded-files:/usr/src/api/uploads
 #      - /Documents/cinema/uploads/:/usr/src/api/uploads
     env_file:
       - server/.env
@@ -35,61 +18,48 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public&connect_timeout=300
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public&connect_timeout=300
     ports:
       - 4200:4200
     networks:
       - cinema-network
-#    depends_on:
-#      - postgres
+#    extra_hosts:
+#      - host.docker.internal:host-gateway
 
   web:
     container_name: cinema-web_app
-#    stdin_open: true
+    tty: true
     build:
       context: web
-      target: prod
+      target: build
       dockerfile: Dockerfile
     env_file:
       - web/.env
-#    environment:
-#      SERVER_HOST: 0.0.0.0
-#      REACT_APP_ENV: development
     volumes:
       - cinema-web:/usr/src/app
       - cinema-web-node-modules:/usr/src/app/node_modules
+      - uploaded-files:/usr/src/app/uploads
     ports:
       - 3000:3000
     networks:
       - cinema-network
+#    extra_hosts:
+#      - host.docker.internal:host-gateway
     depends_on:
-#      - postgres
+      - api
+    links:
       - api
 
-#  pgadmin:
-#    image: dpage/pgadmin4:7.1
-#    container_name: pgadmin4_container
-#    restart: always
-#    ports:
-#      - 5050:80
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: sizov.ilya1996@gmail.com
-#      PGADMIN_DEFAULT_PASSWORD: root
-#    volumes:
-#      - cinema-pgadmin-data:/var/lib/pgadmin
-#    depends_on:
-#      - postgres
-
-
 volumes:
-#  cinema-db:
-#  cinema-pgadmin-data:
   cinema-server:
   cinema-web:
+  uploaded-files:
   cinema-web-node-modules: null
   cinema-server-node-modules: null
 
 networks:
   cinema-network:
+    driver: bridge
 
-#    driver: bridge

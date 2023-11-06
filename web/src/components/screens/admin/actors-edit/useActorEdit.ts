@@ -27,6 +27,8 @@ export const useActorEdit = (
 
   const genreId = Number(query.id);
 
+  // console.log('array from useActorEdit:', array);
+
   const { isLoading } = useQuery(
     ['get-actor-by-id', genreId],
     () => ActorService.getById(genreId),
@@ -42,6 +44,7 @@ export const useActorEdit = (
       enabled: !!query.id,
     },
   );
+
 
   const { data: files } = useQuery(
     ['get-added-files', folder],
@@ -72,16 +75,36 @@ export const useActorEdit = (
       entry => entry[0] !== 'photos',
     );
 
-    array.forEach(item => {
-      data.photos.push(item);
-    });
+    data.photos =[]
+
+    // console.log('data.photos: ', data.photos);
+    //
+    // console.log('array: ', array);
+
+    // console.log('data: ', data);
+
+    for (const photo of array) {
+      if(data.photos.find(item => item.originalName === photo.originalName)) {
+        return
+      }
+      data.photos.push(photo)
+    }
+
+    const movies = data.movies.map(item => item.id)
+
+    // console.log(data.movies);
 
     const resultArray = data.photos.map(item => item.id);
 
+    // console.log('resultArray', resultArray);
+
     const uploadData: IActorEditForm = {
       ...data,
+      movies,
       photos: resultArray,
     };
+
+
 
     // console.log(uploadData);
 

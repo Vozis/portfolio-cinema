@@ -7,6 +7,10 @@ import { IS_PRODUCTION } from '@/config/constants';
 
 import { removeTokensFromStorage } from '@/services/auth/auth.helper';
 import { AuthService } from '@/services/auth/auth.service';
+import getConfig from "next/config";
+
+
+
 
 const axiosOptions = {
   baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,

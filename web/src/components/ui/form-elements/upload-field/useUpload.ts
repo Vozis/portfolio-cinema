@@ -35,10 +35,22 @@ export const useUpload: TypeUpload = (onChange, folder) => {
       setIsLoading(true);
       const files = e.target.files;
 
+      // console.log('files from useUpload: ', files);
+
       if (!files?.length) return;
+
 
       const formData = new FormData();
 
+      for (const file of files) {
+        formData.append('files', file)
+      }
+
+      // /* @ts-ignore */
+      // for (let [key, value] of formData.entries()) {
+      //   // console.log('ok');
+      //   console.log(`${key}: ${value}`);
+      // }
 
       await mutateAsync(formData);
 
@@ -56,4 +68,6 @@ export const useUpload: TypeUpload = (onChange, folder) => {
     }),
     [uploadFile, isLoading],
   );
+
+  // return { uploadFile, isLoading }
 };

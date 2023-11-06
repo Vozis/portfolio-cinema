@@ -36,9 +36,10 @@ FROM node:18-alpine as build
 
 WORKDIR /usr/src/api
 #
-COPY --chown=node:node --from=dev /usr/src/api/package*.json .
-COPY --chown=node:node --from=dev /usr/src/api/node_modules ./node_modules
-COPY --chown=node:node --from=dev /usr/src/api/.env .env
+COPY --from=dev /usr/src/api/package*.json .
+COPY --from=dev /usr/src/api/node_modules ./node_modules
+COPY --from=dev /usr/src/api/uploads ./uploads
+COPY --from=dev /usr/src/api/.env .env
 
 COPY --chown=node:node . .
 
@@ -54,7 +55,7 @@ ENV NODE_ENV production
 
 RUN npm ci --omit=dev && npm cache clean --force
 
-USER node
+#USER node
 
 ################################
 # Production stage
@@ -69,12 +70,12 @@ RUN apk update && apk add openssl
 #
 WORKDIR /usr/src/api
 #
-COPY --chown=node:node --from=build /usr/src/api/package*.json .
-COPY --chown=node:node --from=build /usr/src/api/.env .env
-COPY --chown=node:node --from=build /usr/src/api/node_modules ./node_modules
-COPY --chown=node:node --from=build /usr/src/api/dist ./dist
-COPY --chown=node:node --from=build /usr/src/api/uploads ./uploads
-COPY --chown=node:node --from=build /usr/src/api/prisma ./prisma
+COPY --from=build /usr/src/api/package*.json .
+COPY --from=build /usr/src/api/.env .env
+COPY --from=build /usr/src/api/node_modules ./node_modules
+COPY --from=build /usr/src/api/dist ./dist
+COPY --from=build /usr/src/api/uploads ./uploads
+COPY --from=build /usr/src/api/prisma ./prisma
 #
 EXPOSE 4200
 

@@ -10,9 +10,9 @@ export const returnActorObject: Prisma.ActorSelect = {
   photos: {
     select: returnFileObject,
   },
+  movies: { select: returnMoviesObject },
 };
 
 export const returnFullActorObject: Prisma.ActorSelect = {
   ...returnActorObject,
-  movies: { select: returnMoviesObject },
 };

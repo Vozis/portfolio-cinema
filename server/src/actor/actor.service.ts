@@ -12,10 +12,13 @@ import {
   returnActorObject,
   returnFullActorObject,
 } from './return-actor.object';
+import { FileService } from "../file/file.service";
 
 @Injectable()
 export class ActorService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService,
+    private readonly fileService: FileService
+    ) {}
 
   async getAll(searchTerm?: string) {
     const prismaSearchFilter: Prisma.ActorWhereInput = searchTerm
@@ -69,7 +72,7 @@ export class ActorService {
     const actor = await this.prisma.actor.create({
       data: {
         name: '',
-        slug: uuidv4()
+        slug: uuidv4(),
       },
     });
 
@@ -77,17 +80,32 @@ export class ActorService {
   }
 
   async update(id: number, dto: CreateActorDto) {
-    if (dto.slug) {
-      const oldActor = await this.prisma.actor.findUnique({
-        where: { slug: dto.slug },
-      });
-
-      if (oldActor) throw new BadRequestException('Actor already exists');
-    }
+    // if (dto.slug) {
+    //   const oldActor = await this.prisma.actor.findUnique({
+    //     where: { slug: dto.slug },
+    //   });
+    //
+    //   // if (oldActor) throw new BadRequestException('Actor already exists');
+    // }
 
     const actor = await this.getById(id);
 
-    return this.prisma.actor.update({
+    // const newActorPhoto = await this.
+
+    // console.log(dto.movies);
+    //
+    // console.log(actor.photos);
+
+    for (const photo of actor.photos) {
+      for (const item of dto.photos) {
+        if (item === photo.id && actor.slug === dto.slug) {
+          // console.log('ok');
+          throw new BadRequestException('Actor already exists');
+        }
+      }
+    }
+
+    const updatedActor = await this.prisma.actor.update({
       where: { id },
       data: {
         ...dto,
@@ -103,6 +121,10 @@ export class ActorService {
       },
       select: returnActorObject,
     });
+
+    // console.log('updatedActor', updatedActor);
+
+    return updatedActor;
   }
 
   async delete(id: number) {

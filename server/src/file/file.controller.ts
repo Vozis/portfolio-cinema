@@ -26,6 +26,8 @@ export class FileController {
     @UploadedFiles() files: Express.Multer.File[],
     @Query('folder') folder: string,
   ) {
+    // console.log('files from api files.controller:', files);
+    // console.log('folder from api files.controller: ', folder);
     return this.fileService.saveFiles(files, folder);
   }
 

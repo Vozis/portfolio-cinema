@@ -46,9 +46,11 @@ const ActorEdit: FC = () => {
       existFiles.splice(fileIndex, 1);
       setExistFiles(list);
     } else {
-      setExistFiles(prev => [...prev, file]);
+      // console.log('file from handleClick: ', file);
+      setExistFiles(prev => [file,...prev]);
     }
   };
+
 
   return (
     <Meta title={'Edit Actor'}>

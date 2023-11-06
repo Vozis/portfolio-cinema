@@ -9,6 +9,7 @@ MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update && apk add --no-cache libc6-compat
 
 ENV NODE_ENV development
+ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
 
 WORKDIR /usr/src/web
 
@@ -33,22 +34,32 @@ COPY --from=dev /usr/src/web/node_modules ./node_modules
 COPY  . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
 
-RUN npm run build
+#RUN npm run build
 
 ENV NODE_ENV production
 
-#RUN npm ci --omit=dev && npm cache clean --force
+#RUN #npm ci --omit=dev && npm cache clean --force
 
-################################
+EXPOSE 3000
+
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["npm", "run" ,"start:prod"]
+
+
+###############################
 # Production stage
-################################
+###############################
 
 FROM node:18-alpine as prod
 
 WORKDIR /usr/src/web
 
 ENV NODE_ENV production
+ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
