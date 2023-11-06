@@ -42,7 +42,7 @@ services:
       - cinema-web-node-modules:/usr/src/app/node_modules
       - uploaded-files:/usr/src/app/uploads
     ports:
-      - 3000:3000
+      - 3001:3001
     networks:
       - cinema-network
 #    extra_hosts:
