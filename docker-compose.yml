@@ -45,6 +45,7 @@ services:
       - 3001:3001
     networks:
       - cinema-network
+      - net
 #    extra_hosts:
 #      - host.docker.internal:host-gateway
     depends_on:
@@ -62,4 +63,6 @@ volumes:
 networks:
   cinema-network:
     driver: bridge
+  net:
+    external: true
 
