@@ -6,8 +6,8 @@ const nextConfig = {
   },
   poweredByHeader: false,
   serverRuntimeConfig: {
-    apiUrl:`${process.env.REACT_APP_SERVER_URL}/api`
-    // apiUrl:`${process.env.REACT_APP_DOCKER_URL}/api`
+    // apiUrl:`${process.env.REACT_APP_SERVER_URL}/api`
+    apiUrl:`${process.env.REACT_APP_DOCKER_URL}/api`
   },
   publicRuntimeConfig: {
     apiUrl:`${process.env.REACT_APP_SERVER_URL}/api`
