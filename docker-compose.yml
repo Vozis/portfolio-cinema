@@ -38,9 +38,9 @@ services:
     env_file:
       - web/.env
     environment:
-      - VIRTUAL_HOST=project1.ilyasizov.com
+      - VIRTUAL_HOST=cinema.ilyasizov.webtm.ru
       - VIRTUAL_PORT=3001
-      - LETSENCRYPT_HOST=project1.ilyasizov.com
+      - LETSENCRYPT_HOST=cinema.ilyasizov.webtm.ru
       - LETSENCRYPT_EMAIL=user@domain.com
     volumes:
       - cinema-web:/usr/src/app
