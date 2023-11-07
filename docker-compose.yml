@@ -37,6 +37,11 @@ services:
       dockerfile: Dockerfile
     env_file:
       - web/.env
+    environment:
+      - VIRTUAL_HOST=project1.ilyasizov.com
+      - VIRTUAL_PORT=3001
+      - LETSENCRYPT_HOST=project1.ilyasizov.com
+      - LETSENCRYPT_EMAIL=user@domain.com
     volumes:
       - cinema-web:/usr/src/app
       - cinema-web-node-modules:/usr/src/app/node_modules
