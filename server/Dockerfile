@@ -77,9 +77,9 @@ COPY --from=build /usr/src/api/dist ./dist
 COPY --from=build /usr/src/api/uploads ./uploads
 COPY --from=build /usr/src/api/prisma ./prisma
 #
-EXPOSE 4200
+EXPOSE 4201
 
-ENV PORT 4200
+ENV PORT 4201
 ENV HOSTNAME "0.0.0.0"
 
 #CMD ["node", "dist/main.js"]
