@@ -25,6 +25,7 @@ services:
       - 4201:4201
     networks:
       - cinema-network
+      - net
 #    extra_hosts:
 #      - host.docker.internal:host-gateway
 

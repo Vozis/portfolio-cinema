@@ -4,7 +4,7 @@ import { PrismaService } from './prisma.service';
 import { ValidationPipe } from '@nestjs/common';
 import * as process from 'process';
 
-const PORT = process.env.NESTJS_APP_LOCAL_PORT || 4200
+const PORT = process.env.NESTJS_APP_LOCAL_PORT || 4201
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
