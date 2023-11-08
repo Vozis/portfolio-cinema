@@ -69,6 +69,9 @@ RUN apk update && apk add openssl
 #RUN apk update && apk add --no-cache libssl-dev dumb-init
 #
 WORKDIR /usr/src/api
+
+ENV POSTGRES_HOST postgres
+ENV POSTGRES_PORT 5432
 #
 COPY --from=build /usr/src/api/package*.json .
 COPY --from=build /usr/src/api/.env .env
