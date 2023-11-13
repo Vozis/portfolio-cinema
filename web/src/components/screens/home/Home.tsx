@@ -12,39 +12,39 @@ import { IHome } from '@/screens/home/home.interface';
 const Home: FC<IHome> = ({ slides, actors, trendingMovies }) => {
   return (
     <Meta
-      title={'Watch movies'}
+      title={'Watch Movies'}
       description={
-        'Watch MovieApp movies amd TV shows online right from your browser'
+        'Смотри любые фильмы и сериалы в любое время прямиком с твоего браузера'
       }
     >
       <Heading
-        title={'Watch movies'}
+        title={'Наслаждайся просмотром!'}
         className={'text-gray-400 mb-8 text-xl'}
       />
       {slides.length ? (
         <Slider slides={slides} />
       ) : (
-        <div className={'text-white text-opacity-60'}>No movies yet...</div>
+        <div className={'text-white text-opacity-60'}>На данный момент смотреть нечего...</div>
       )}
 
       <div className={'my-10'}>
-        <SubHeading title={'Trending now'} />
+        <SubHeading title={'В тренде'} />
         {trendingMovies.length ? (
           <Gallery items={trendingMovies} />
         ) : (
           <div className={'text-white text-opacity-60'}>
-            No trending movies yet...
+            На данные момент здесь ничего нет...
           </div>
         )}
       </div>
 
       <div className={'my-10'}>
-        <SubHeading title={'Best actors'} />
+        <SubHeading title={'Лучшие актеры'} />
         {actors.length ? (
           <Gallery items={actors} />
         ) : (
           <div className={'text-white text-opacity-60'}>
-            No bet actors yet...
+            На данные момент здесь ничего нет...
           </div>
         )}
       </div>

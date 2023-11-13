@@ -32,7 +32,7 @@ const Profile: FC = () => {
           <AuthFields register={register} formState={formState} />
         )}
 
-        <Button>Update</Button>
+        <Button>Обновить</Button>
       </form>
     </Meta>
   );

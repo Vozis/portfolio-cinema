@@ -41,7 +41,7 @@ const GenreEdit: FC = () => {
   return (
     <Meta title={'Edit Genre'}>
       <AdminNavigation />
-      <Heading title={'Edit Genre'} />
+      <Heading title={'Изменить параметры жанра'} />
       <form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
         {isLoading ? (
           <SkeletonLoader count={3} />

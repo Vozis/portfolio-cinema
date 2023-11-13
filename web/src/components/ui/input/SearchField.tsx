@@ -21,7 +21,7 @@ const SearchField: FC<ISearchField> = ({ searchTerm, handleSearch }) => {
         }
       />
       <input
-        placeholder={'Search...'}
+        placeholder={'Поиск...'}
         value={searchTerm}
         onChange={handleSearch}
         className={

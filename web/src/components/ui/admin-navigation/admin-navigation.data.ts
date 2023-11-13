@@ -4,23 +4,23 @@ import { getAdminHomeUrl, getAdminUrl } from '@/config/api/url.config';
 
 export const navItems: INavItem[] = [
   {
-    title: 'Statistics',
+    title: 'Статистика',
     link: getAdminHomeUrl(),
   },
   {
-    title: 'Users',
+    title: 'Пользователи',
     link: getAdminUrl('users'),
   },
   {
-    title: 'Movies',
+    title: 'Фильмы',
     link: getAdminUrl('movies'),
   },
   {
-    title: 'Actors',
+    title: 'Актеры',
     link: getAdminUrl('actors'),
   },
   {
-    title: 'Genres',
+    title: 'Жанры',
     link: getAdminUrl('genres'),
   },
 ];

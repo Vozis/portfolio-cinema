@@ -47,7 +47,7 @@ const Auth: FC = () => {
             'mx-auto w-1/2 air-block bg-opacity-80 p-7 text-center max-md:w-3/4'
           }
         >
-          <Heading title={'Auth'} className={'mb-6'} />
+          <Heading title={'Авторизация'} className={'mb-6'} />
 
           <AuthFields
             register={registerInput}
@@ -63,7 +63,7 @@ const Auth: FC = () => {
               disabled={isLoading}
               className={'rounded-r-none max-md:block max-md:rounded-md'}
             >
-              Login
+              Войти
             </Button>
             <Button
               type={'submit'}
@@ -73,7 +73,7 @@ const Auth: FC = () => {
                 'rounded-l-none opacity-80 hover:opacity-100 transition-opacity bg-[#76140D] max-md:block max-md:rounded-md'
               }
             >
-              Register
+              Зарегистрироваться
             </Button>
           </div>
         </form>

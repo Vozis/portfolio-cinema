@@ -10,8 +10,8 @@ import { MovieService } from '@/services/movie.service';
 const TrendingPage: NextPage<{ movies: IMovie[] }> = ({ movies }) => {
   return (
     <CatalogMovies
-      title={'Trending movies'}
-      description={'The most trending movies in the world'}
+      title={'Популярные фильмы'}
+      description={'Самые популярные фильмы среди зрителей.'}
       movies={movies || []}
     />
   );

@@ -19,12 +19,12 @@ const MovieAdminList: FC = () => {
     createAsync,
   } = useMovies();
 
-  const headerItems = ['Title', 'Genres', 'Rating'];
+  const headerItems = ['Название', 'Жанры', 'Рейтинг'];
 
   return (
     <Meta title={'Movies'}>
       <AdminNavigation />
-      <Heading title={'Movies'} />
+      <Heading title={'Фильмы'} />
       <AdminHeader
         handleSearch={handleSearch}
         searchTerm={searchTerm}

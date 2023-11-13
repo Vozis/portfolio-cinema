@@ -11,7 +11,7 @@ const Admin: FC = () => {
   return (
     <Meta title={'Admin panel'}>
       <AdminNavigation />
-      <Heading title={'Some statistics'} />
+      <Heading title={'Статистика'} />
       <Statistics />
     </Meta>
   );

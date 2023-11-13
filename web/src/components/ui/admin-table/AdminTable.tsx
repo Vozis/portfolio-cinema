@@ -36,7 +36,7 @@ const AdminTable: FC<IAdminTable> = ({
           />
         ))
       ) : (
-        <div className={styles.notFound}>Element not found</div>
+        <div className={styles.notFound}>Элементы не найдены</div>
       )}
     </div>
   );

@@ -20,7 +20,7 @@ const StatisticsCountUsers: FC = () => {
         ) : (
           <div className={styles.number}>{response?.data}</div>
         )}
-        <div className={styles.description}>Users</div>
+        <div className={styles.description}>Пользователи</div>
       </div>
     </div>
   );

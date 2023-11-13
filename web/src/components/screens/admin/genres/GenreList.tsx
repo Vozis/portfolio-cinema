@@ -19,12 +19,12 @@ const GenreList: FC = () => {
     createAsync,
   } = useGenres();
 
-  const headerItems = ['Name', 'Slug'];
+  const headerItems = ['Наименование', 'Slug'];
 
   return (
     <Meta title={'Genres'}>
       <AdminNavigation />
-      <Heading title={'Genres'} />
+      <Heading title={'Жанры'} />
       <AdminHeader
         handleSearch={handleSearch}
         searchTerm={searchTerm}

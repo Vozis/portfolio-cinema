@@ -1,6 +1,9 @@
 import { IActor, IMovie } from '@/shared/types/movie.types';
 
-export interface IMovieEditInput extends Omit<IMovie, '_id'> {}
+export interface IMovieEditInput extends Omit<IMovie, '_id' | 'genres' | 'actors'> {
+  genres: number[];
+  actors: number[];
+}
 
 export interface IMovieEditForm
   extends Omit<IMovie, '_id' | 'posters' | 'bigPosters' | 'videos' | 'genres' | 'actors'> {

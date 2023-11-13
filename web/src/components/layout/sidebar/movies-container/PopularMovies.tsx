@@ -24,7 +24,7 @@ const PopularMovies: FC = () => {
     <div>
       <MovieList
         movies={popularMovies || []}
-        title={'Popular movies'}
+        title={'Популярные фильмы'}
         link={'/trending'}
       />
     </div>

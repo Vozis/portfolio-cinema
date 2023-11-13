@@ -46,7 +46,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
       />
 
       <div className={'mt-12'}>
-        <SubHeading title={'Similar Movies'} />
+        <SubHeading title={'Похожие фильмы'} />
         <Gallery items={similarMovies} />
       </div>
 

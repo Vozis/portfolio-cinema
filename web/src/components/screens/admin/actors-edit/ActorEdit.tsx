@@ -55,7 +55,7 @@ const ActorEdit: FC = () => {
   return (
     <Meta title={'Edit Actor'}>
       <AdminNavigation />
-      <Heading title={'Edit Actor'} />
+      <Heading title={'Изменить данные актера'} />
       <form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
         {isLoading ? (
           <SkeletonLoader count={3} />

@@ -1,14 +1,16 @@
-
 import * as process from 'process';
 import getConfig from "next/config";
 
 const {serverRuntimeConfig, publicRuntimeConfig} = getConfig()
 
-export const API_URL = serverRuntimeConfig.apiUrl || publicRuntimeConfig.apiUrl
-export const API_SERVER_URL = serverRuntimeConfig.apiUrl || publicRuntimeConfig.apiUrl
+export const API_URL = `${process.env.APP_URL}/api`;
+export const API_SERVER_URL = serverRuntimeConfig.apiUrl || publicRuntimeConfig.apiUrl;
 
 // export const API_URL = `${process.env.APP_URL}/api`;
 // export const API_SERVER_URL = `${process.env.APP_SERVER_URL}/api`;
+
+console.log('API_URL: ',API_URL);
+console.log('API_SERVER_URL: ',API_SERVER_URL);
 
 export const getGenreApi = (string: string) => `/genres/${string}`;
 export const getUsersApi = (string: string) => `/users/${string}`;

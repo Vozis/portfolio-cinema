@@ -31,7 +31,7 @@ const UserEdit: FC = () => {
   return (
     <Meta title={'Edit User'}>
       <AdminNavigation />
-      <Heading title={'Edit User'} />
+      <Heading title={'Изменить параметры пользователя'} />
       <form onSubmit={handleSubmit(onSubmit)} className={'admin-form'}>
         {isLoading ? (
           <SkeletonLoader count={3} />

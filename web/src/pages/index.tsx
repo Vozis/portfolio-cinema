@@ -46,9 +46,6 @@ export const getStaticProps: GetStaticProps = async () => {
       title: m.title,
     }));
 
-    // console.log('slides: ', slides);
-
-
     const actors: IGalleryItem[] = dataActors.slice(0, 7).map(item => ({
       name: item.name,
       posterPath: item.photos[0].url,

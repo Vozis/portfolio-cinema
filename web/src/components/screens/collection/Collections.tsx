@@ -9,8 +9,8 @@ import styles from './Collection.module.scss';
 import CollectionItem from '@/screens/collection/CollectionItem';
 import { ICollection } from '@/screens/collection/collection.interface';
 
-const title = 'Discovery';
-const description = 'In this section you will find all of your collections.';
+const title = 'Коллекции';
+const description = 'Здесь собраны все фильмы по жанрам.';
 
 const Collections: FC<{ collections: ICollection[] }> = ({ collections }) => {
   return (

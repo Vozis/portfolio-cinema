@@ -18,12 +18,12 @@ const RateMovie: FC<IRateMovie> = ({ movieId, slug }) => {
 
   return (
     <div className={styles.wrapper}>
-      <h3>How do you like the movie?</h3>
-      <p>Ratings improve recommendations</p>
+      <h3>Вам понравился фильм?</h3>
+      <p>Оценка улучшает Ваши рекомендации</p>
       {user ? (
         <>
           {isSended ? (
-            <div className={styles.thanks}>Thanks for rating</div>
+            <div className={styles.thanks}>Спасибо за оценку!</div>
           ) : (
             <Rating
               initialValue={rating}
@@ -33,7 +33,7 @@ const RateMovie: FC<IRateMovie> = ({ movieId, slug }) => {
           )}
         </>
       ) : (
-        <div>Please log in</div>
+        <div>Войди прежде, чем ставить рейтинг</div>
       )}
     </div>
   );

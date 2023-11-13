@@ -18,7 +18,7 @@ const Gallery: FC<{ items: IGalleryItem[] }> = ({ items }) => {
       ) : (
         <div className={styles.content}>
           <div className={'text-lg text-white text-opacity-60'}>
-            No similar items...
+            Элементов не найдено...
           </div>
         </div>
       )}

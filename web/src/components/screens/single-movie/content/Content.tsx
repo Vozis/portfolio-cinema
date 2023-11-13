@@ -30,7 +30,7 @@ const Content: FC<{ movie: IMovie }> = ({ movie }) => {
         <span>{movie.duration} min. </span>
       </div>
       <ContentList
-        name={'Genres'}
+        name={'Жанры'}
         links={movie.genres.slice(0, 3).map(g => ({
           id: g.id,
           link: getGenreUrl(g.slug),
@@ -38,7 +38,7 @@ const Content: FC<{ movie: IMovie }> = ({ movie }) => {
         }))}
       />
       <ContentList
-        name={'Actors'}
+        name={'Актеры'}
         links={movie.actors.slice(0, 3).map(a => ({
           id: a.id,
           link: getActorUrl(a.slug),

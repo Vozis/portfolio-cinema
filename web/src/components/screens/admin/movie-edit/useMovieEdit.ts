@@ -57,8 +57,8 @@ export const useMovieEdit = (setValue: UseFormSetValue<IMovieEditInput>) => {
     const resultPosters = data.posters.map(item => item.id);
     const resultBigPosters = data.bigPosters.map(item => item.id);
     const resultVideos = data.videos.map(item => item.id);
-    const resultGenres = data.genres.map(item => item.id);
-    const resultActors = data.actors.map(item => item.id);
+    const resultGenres = data.genres
+    const resultActors = data.actors
 
     const uploadData: IMovieEditForm = {
       ...data,

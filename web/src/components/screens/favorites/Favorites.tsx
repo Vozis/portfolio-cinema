@@ -22,7 +22,7 @@ const Favorites: FC = () => {
 
   return (
     <Meta title={'Favorites'}>
-      <Heading title={'Favorites'} />
+      <Heading title={'Избранное'} />
       <section className={styles.favorites}>
         {isLoading ? (
           <SkeletonLoader

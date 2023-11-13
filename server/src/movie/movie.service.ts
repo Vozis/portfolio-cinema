@@ -164,12 +164,10 @@ export class MovieService {
 
   async update(id: number, dto: CreateMovieDto){
 
+    // console.log(dto);
 
     const oldMovie = await this.getById(id);
 
-    // const newActorPhoto = await this.
-
-    // console.log(dto);
 
     for (const photo of oldMovie.posters) {
       for (const item of dto.posters) {

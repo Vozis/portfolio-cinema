@@ -21,7 +21,7 @@ const SlugField: FC<ISlugField> = ({ generate, register, error }) => {
         }
         onClick={generate}
       >
-        Generate
+        Сгенерировать
       </button>
     </div>
   );

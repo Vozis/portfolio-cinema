@@ -22,12 +22,12 @@ const MovieList: FC<IMovieList> = ({ movies, title, link }) => {
           movies.map(movie => <MovieItem key={movie.id} movie={movie} />)
         ) : (
           <div className={'text-white text-opacity-50 font-medium mb-4'}>
-            No movies yet
+            На данные момент здесь ничего нет...
           </div>
         )}
       </div>
       <Link href={link} className={'p-2.5 btn-primary block text-center'}>
-        {link === '/trending' ? 'All trending movies' : 'All favorite movies'}
+        {link === '/trending' ? 'Все популярные фильмы' : 'Все избранные фильмы'}
       </Link>
     </div>
   );

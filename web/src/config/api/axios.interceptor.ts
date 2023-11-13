@@ -10,8 +10,6 @@ import { AuthService } from '@/services/auth/auth.service';
 import getConfig from "next/config";
 
 
-
-
 const axiosOptions = {
   baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,
   headers: getContentType(),

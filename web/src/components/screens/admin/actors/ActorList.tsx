@@ -19,12 +19,12 @@ const ActorList: FC = () => {
     createAsync,
   } = useActors();
 
-  const headerItems = ['Name', 'Count of movies'];
+  const headerItems = ['Имя | Фамилия', 'Количество фильмов'];
 
   return (
     <Meta title={'Actors'}>
       <AdminNavigation />
-      <Heading title={'Actors'} />
+      <Heading title={'Актеры'} />
       <AdminHeader
         handleSearch={handleSearch}
         searchTerm={searchTerm}

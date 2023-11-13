@@ -64,7 +64,7 @@ const MovieEdit: FC = () => {
   return (
     <Meta title={'Edit Movie'}>
       <AdminNavigation />
-      <Heading title={'Edit Movie'} />
+      <Heading title={'Изменить параметры фильма'} />
       <form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
         {isLoading ? (
           <SkeletonLoader count={3} />
