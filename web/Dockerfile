@@ -26,6 +26,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
 ENV UPLOAD_HOST api
 ENV REACT_APP_DOCKER_URL cinema.ilyasizov.webtm.ru
+ENV APP_HOST 127.0.0.1
 ENV APP_PORT 3001
 ENV REACT_APP_ENV production
 ENV NODE_ENV production
@@ -44,6 +45,7 @@ WORKDIR /usr/src/web
 
 ENV NODE_ENV production
 ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
+ENV APP_HOST 127.0.0.1
 ENV APP_PORT 3001
 ENV REACT_APP_ENV production
 

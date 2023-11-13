@@ -37,12 +37,20 @@ services:
       target: build
       dockerfile: Dockerfile
     env_file:
-      - web/.env
+      - ./web/.env
     environment:
-      - VIRTUAL_HOST=cinema.ilyasizov.webtm.ru
-      - VIRTUAL_PORT=3001
-      - LETSENCRYPT_HOST=cinema.ilyasizov.webtm.ru
-      - LETSENCRYPT_EMAIL=user@domain.com
+      APP_HOST: ${APP_HOST}
+      APP_PORT: ${APP_PORT}
+      REACT_APP_UPLOADS_URL: ${REACT_APP_UPLOADS_URL}
+      UPLOAD_HOST: ${UPLOAD_HOST}
+      REACT_APP_DOCKER_URL: ${REACT_APP_DOCKER_URL}
+      REACT_APP_ENV: ${REACT_APP_ENV}
+      SERVER_HOST: ${SERVER_HOST}
+      SERVER_PORT: ${SERVER_PORT}
+#      - VIRTUAL_HOST=cinema.ilyasizov.webtm.ru
+#      - VIRTUAL_PORT=3001
+#      - LETSENCRYPT_HOST=cinema.ilyasizov.webtm.ru
+#      - LETSENCRYPT_EMAIL=user@domain.com
     volumes:
       - cinema-web:/usr/src/app
       - cinema-web-node-modules:/usr/src/app/node_modules
@@ -54,10 +62,10 @@ services:
       - net
 #    extra_hosts:
 #      - host.docker.internal:host-gateway
-    depends_on:
-      - api
-    links:
-      - api
+#    depends_on:
+#      - api
+#    links:
+#      - api
 
 volumes:
   cinema-server:
