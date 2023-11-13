@@ -1,7 +1,7 @@
 ################################
 # Develop stage
 ################################
-FROM node:18.16.0-alpine as dev
+FROM node:18.18.2-alpine as dev
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update && apk add --no-cache libc6-compat
 
@@ -15,7 +15,7 @@ COPY . .
 ################################
 # Build stage
 ################################
-FROM node:18.16.0-alpine as build
+FROM node:18.18.2-alpine as build
 WORKDIR /usr/src/web
 
 COPY --from=dev /usr/src/web/package*.json .
@@ -39,7 +39,7 @@ CMD ["npm", "run" ,"start:prod"]
 ###############################
 # Production stage
 ###############################
-FROM node:18.16.0-alpine as prod
+FROM node:18.18.2-alpine as prod
 WORKDIR /usr/src/web
 
 ENV NODE_ENV production

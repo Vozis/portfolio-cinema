@@ -1,7 +1,7 @@
 ################################
 # Develop stage
 ################################
-FROM node:18.16.0-alpine as dev
+FROM node:18.18.2-alpine as dev
 MAINTAINER ilya <sizov.ilya1996@gmail.com>
 RUN apk update && apk add openssl
 
@@ -23,7 +23,7 @@ RUN npm run prisma:generate
 #################################
 # Build stage
 #################################
-FROM node:18.16.0-alpine as build
+FROM node:18.18.2-alpine as build
 WORKDIR /usr/src/api
 
 COPY --from=dev /usr/src/api/package*.json .
@@ -46,7 +46,7 @@ USER node
 ################################
 # Production stage
 ################################
-FROM node:18.16.0-alpine as prod
+FROM node:18.18.2-alpine as prod
 RUN apk update && apk add openssl
 #RUN apk update && apk add libssl-dev dumb-init -y --no-install-recommends
 #RUN apk update && apk add --no-cache libssl-dev dumb-init
