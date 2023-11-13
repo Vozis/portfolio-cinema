@@ -35,7 +35,7 @@ ENV NODE_ENV production
 #RUN #npm ci --omit=dev && npm cache clean --force
 
 EXPOSE ${APP_PORT}
-ENV HOSTNAME "0.0.0.0"
+ENV HOSTNAME 0.0.0.0
 CMD ["npm", "run" ,"start:prod"]
 ###############################
 # Production stage
@@ -65,6 +65,6 @@ USER nextjs
 
 EXPOSE ${APP_PORT}
 ENV PORT 3001
-ENV HOSTNAME "0.0.0.0"
+ENV HOSTNAME 0.0.0.0
 
 CMD ["node", "server.js"]
