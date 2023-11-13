@@ -27,9 +27,10 @@ ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
 ENV UPLOAD_HOST api
 ENV REACT_APP_DOCKER_URL cinema.ilyasizov.webtm.ru
 ENV APP_PORT 3001
+ENV REACT_APP_ENV production
+ENV NODE_ENV production
 
 #RUN npm run build
-ENV NODE_ENV production
 #RUN #npm ci --omit=dev && npm cache clean --force
 
 EXPOSE ${APP_PORT}
@@ -44,6 +45,7 @@ WORKDIR /usr/src/web
 ENV NODE_ENV production
 ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
 ENV APP_PORT 3001
+ENV REACT_APP_ENV production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
