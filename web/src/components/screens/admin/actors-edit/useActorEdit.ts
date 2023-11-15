@@ -27,8 +27,6 @@ export const useActorEdit = (
 
   const genreId = Number(query.id);
 
-  // console.log('array from useActorEdit:', array);
-
   const { isLoading } = useQuery(
     ['get-actor-by-id', genreId],
     () => ActorService.getById(genreId),
@@ -75,7 +73,11 @@ export const useActorEdit = (
       entry => entry[0] !== 'photos',
     );
 
-    data.photos =[]
+    console.log('array from useActorEdit:', array);
+
+    console.log('data: ', data.photos);
+
+    // data.photos = []
 
     // console.log('data.photos: ', data.photos);
     //
@@ -89,6 +91,8 @@ export const useActorEdit = (
       }
       data.photos.push(photo)
     }
+
+    console.log('data.photos: ',data.photos);
 
     const movies = data.movies.map(item => item.id)
 

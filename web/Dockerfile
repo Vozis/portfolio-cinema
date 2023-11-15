@@ -41,13 +41,17 @@ CMD ["npm", "run" ,"start:prod"]
 # Production stage
 ###############################
 FROM node:18.18.2-alpine as prod
+
 WORKDIR /usr/src/web
 
-ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
 ENV REACT_APP_UPLOADS_URL http://host.docker.internal:4200
+ENV UPLOAD_HOST api
+ENV REACT_APP_DOCKER_URL cinema.ilyasizov.webtm.ru
 ENV APP_HOST 127.0.0.1
 ENV APP_PORT 3001
 ENV REACT_APP_ENV production
+ENV NODE_ENV production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -64,7 +68,6 @@ COPY --from=build --chown=nextjs:nodejs /usr/src/web/.next/static ./.next/static
 USER nextjs
 
 EXPOSE ${APP_PORT}
-ENV PORT 3001
 ENV HOSTNAME 0.0.0.0
 
 CMD ["node", "server.js"]

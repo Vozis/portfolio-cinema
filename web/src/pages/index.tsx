@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const { data: dataMovies } = await MovieService.getAll();
     const { data: dataActors } = await ActorService.getAll();
     const dataTrendingMovies = await MovieService.getMostPopularMovies();
-    //
+
     // console.log('ssss',dataMovies.slice(0, 3).map(m => ({
     //   id: m.id,
     //   link: getMovieUrl(m.slug),
@@ -38,6 +38,8 @@ export const getStaticProps: GetStaticProps = async () => {
     //   title: m.title,
     // })));
 
+    // console.log(dataActors);
+
     const slides: ISlide[] = dataMovies.slice(0, 3).map(m => ({
       id: m.id,
       link: getMovieUrl(m.slug),
@@ -45,6 +47,8 @@ export const getStaticProps: GetStaticProps = async () => {
       subTitle: getGenreList(m.genres),
       title: m.title,
     }));
+
+    // console.log('slides: ',slides);
 
     const actors: IGalleryItem[] = dataActors.slice(0, 7).map(item => ({
       name: item.name,
@@ -55,6 +59,8 @@ export const getStaticProps: GetStaticProps = async () => {
         subTitle: `+${item.countMovies} movies`,
       },
     }));
+
+    // console.log('actors: ', actors);
 
     const trendingMovies: IGalleryItem[] = dataTrendingMovies
       .slice(0, 7)
