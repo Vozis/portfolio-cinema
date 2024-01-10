@@ -30,3 +30,7 @@ export const returnMoviesObject: Prisma.MovieSelect = {
     select: returnActorObject,
   },
 };
+
+export type MovieSelect = Prisma.MovieGetPayload<{
+  select: typeof returnMoviesObject;
+}>;

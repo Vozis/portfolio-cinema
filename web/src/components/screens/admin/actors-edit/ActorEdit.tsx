@@ -46,7 +46,7 @@ const ActorEdit: FC = () => {
       existFiles.splice(fileIndex, 1);
       setExistFiles(list);
     } else {
-      console.log('file from handleClick: ', file);
+      // console.log('file from handleClick: ', file);
       setExistFiles(prev => [file,...prev]);
     }
   };

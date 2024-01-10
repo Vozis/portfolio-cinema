@@ -83,6 +83,10 @@ export class AuthService {
     return user;
   }
 
+  async verify(token: string): Promise<User> {
+    return this.jwtService.verifyAsync(token);
+  }
+
   private async getTokens(dto: Partial<User>): Promise<ITokens> {
     const payload: Partial<User> = {
       id: dto.id,
@@ -96,25 +100,12 @@ export class AuthService {
     });
 
     const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '5d',
+      expiresIn: '30d',
     });
 
     return {
       accessToken,
       refreshToken,
     };
-  }
-
-  // private returnUserObject(user: User): Partial<User> {
-  //   return {
-  //     id: user.id,
-  //     email: user.email,
-  //     isAdmin: user.isAdmin,
-  //     roles: user.roles,
-  //   };
-  // }
-
-  async verify(token: string): Promise<User> {
-    return this.jwtService.verifyAsync(token);
   }
 }

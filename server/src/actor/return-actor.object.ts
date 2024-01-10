@@ -16,3 +16,12 @@ export const returnActorObject: Prisma.ActorSelect = {
 export const returnFullActorObject: Prisma.ActorSelect = {
   ...returnActorObject,
 };
+
+
+export type ActorSelect = Prisma.ActorGetPayload<{
+  select: typeof returnActorObject
+}>
+
+export type ActorFullSelect = Prisma.ActorGetPayload<{
+  select: typeof returnFullActorObject
+}>

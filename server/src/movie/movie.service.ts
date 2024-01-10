@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { PrismaService } from '../prisma.service';
 import { Prisma } from '@prisma/client';
 import { returnActorObject } from '../actor/return-actor.object';
-import { returnMoviesObject } from './return-movies.object';
+import { MovieSelect, returnMoviesObject } from './return-movies.object';
 import { ActorService } from '../actor/actor.service';
 
 @Injectable()
@@ -28,6 +28,8 @@ export class MovieService {
                 contains: searchTerm,
                 mode: 'insensitive',
               },
+            },
+            {
               title: {
                 contains: searchTerm,
                 mode: 'insensitive',
@@ -74,7 +76,7 @@ export class MovieService {
     });
   }
 
-  async getBySlug(slug: string) {
+  async getBySlug(slug: string): Promise<MovieSelect> {
     const movie = await this.prisma.movie.findUnique({
       where: { slug },
       select: returnMoviesObject,
@@ -85,7 +87,7 @@ export class MovieService {
     return movie;
   }
 
-  async getById(id: number) {
+  async getById(id: number): Promise<MovieSelect> {
     const movie = await this.prisma.movie.findUnique({
       where: { id },
       select: returnMoviesObject,
@@ -96,7 +98,7 @@ export class MovieService {
     return movie;
   }
 
-  async getByActor(actorId: number) {
+  async getByActor(actorId: number): Promise<MovieSelect[]> {
     return this.prisma.movie.findMany({
       where: {
         actors: {
@@ -109,7 +111,7 @@ export class MovieService {
     });
   }
 
-  async getByGenres(genresIds: number[]) {
+  async getByGenres(genresIds: number[]): Promise<MovieSelect[]> {
     const searchOptions = (genreId: number) => {
       return {
         genres: {
@@ -132,7 +134,7 @@ export class MovieService {
     });
   }
 
-  async getMostPopular() {
+  async getMostPopular(): Promise<MovieSelect[]> {
     return this.prisma.movie.findMany({
       where: {
         countOpened: {
@@ -162,18 +164,21 @@ export class MovieService {
     return movie.id;
   }
 
-  async update(id: number, dto: CreateMovieDto){
-
-    // console.log(dto);
-
+  async update(id: number, dto: CreateMovieDto) {
     const oldMovie = await this.getById(id);
 
-
     for (const photo of oldMovie.posters) {
-      for (const item of dto.posters) {
-        if (item === photo.id && oldMovie.slug === dto.slug) {
+      if (!dto.posters) {
+        if (oldMovie.slug === dto.slug) {
           // console.log('ok');
           throw new BadRequestException('Movie already exists');
+        }
+      } else {
+        for (const item of dto.posters) {
+          if (item === photo.id && oldMovie.slug === dto.slug) {
+            // console.log('ok');
+            throw new BadRequestException('Movie already exists');
+          }
         }
       }
     }
@@ -195,8 +200,7 @@ export class MovieService {
     //   }
     // }
 
-
-     await this.prisma.movie.update({
+    await this.prisma.movie.update({
       where: { id },
       data: {
         title: dto.title,
@@ -206,27 +210,46 @@ export class MovieService {
         description: dto.description,
         slug: dto.slug,
         posters: {
-          set: [],
-          connect: dto.posters.map(id => ({ id })),
+          ...(dto.posters && dto.posters.length
+            ? {
+                set: [],
+                connect: dto.posters.map(id => ({ id })),
+              }
+            : {}),
         },
         bigPosters: {
-          set: [],
-          connect: dto.bigPosters.map(id => ({ id })),
+          ...(dto.bigPosters && dto.bigPosters.length
+            ? {
+                set: [],
+                connect: dto.bigPosters.map(id => ({ id })),
+              }
+            : {}),
         },
         videos: {
-          set: [],
-          [dto.videos && 'connect']: dto.videos.map(id => ({ id })),
+          ...(dto.videos && dto.videos.length
+            ? {
+                set: [],
+                connect: dto.videos.map(id => ({ id })),
+              }
+            : {}),
         },
         genres: {
-          set: [],
-          connect: dto.genres.map(id => ({ id })),
+          ...(dto.genres && dto.genres.length
+            ? {
+                set: [],
+                connect: dto.genres.map(id => ({ id })),
+              }
+            : {}),
         },
         actors: {
-          set: [],
-          connect: dto.actors.map(id => ({ id })),
+          ...(dto.actors && dto.actors.length
+            ? {
+                set: [],
+                connect: dto.actors.map(id => ({ id })),
+              }
+            : {}),
         },
       },
-
     });
 
     await this.actorService.updateCountMovies();

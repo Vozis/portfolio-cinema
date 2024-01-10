@@ -9,18 +9,20 @@ import { PrismaService } from '../prisma.service';
 import { Prisma } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import {
+  ActorSelect,
   returnActorObject,
-  returnFullActorObject,
-} from './return-actor.object';
-import { FileService } from "../file/file.service";
+  returnFullActorObject
+} from "./return-actor.object";
+import { FileService } from '../file/file.service';
 
 @Injectable()
 export class ActorService {
-  constructor(private readonly prisma: PrismaService,
-    private readonly fileService: FileService
-    ) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly fileService: FileService,
+  ) {}
 
-  async getAll(searchTerm?: string) {
+  async getAll(searchTerm?: string): Promise<ActorSelect[]> {
     const prismaSearchFilter: Prisma.ActorWhereInput = searchTerm
       ? {
           OR: [
@@ -29,6 +31,8 @@ export class ActorService {
                 contains: searchTerm,
                 mode: 'insensitive',
               },
+            },
+            {
               name: {
                 contains: searchTerm,
                 mode: 'insensitive',
@@ -46,7 +50,7 @@ export class ActorService {
     });
   }
 
-  async getById(id: number) {
+  async getById(id: number): Promise<ActorSelect> {
     const actor = await this.prisma.actor.findUnique({
       where: { id },
       select: returnFullActorObject,
@@ -57,7 +61,7 @@ export class ActorService {
     return actor;
   }
 
-  async getBySlug(slug: string) {
+  async getBySlug(slug: string): Promise<ActorSelect> {
     const actor = await this.prisma.actor.findUnique({
       where: { slug },
       select: returnActorObject,
@@ -79,7 +83,7 @@ export class ActorService {
     return actor.id;
   }
 
-  async update(id: number, dto: CreateActorDto) {
+  async update(id: number, dto: CreateActorDto): Promise<ActorSelect> {
     // if (dto.slug) {
     //   const oldActor = await this.prisma.actor.findUnique({
     //     where: { slug: dto.slug },

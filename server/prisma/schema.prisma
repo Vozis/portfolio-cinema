@@ -134,6 +134,10 @@ model File {
   videos  Movie? @relation("videos", fields: [videoId], references: [id])
   videoId Int?
 
+  @@index([videoId])
+  @@index([bigPosterId])
+  @@index([posterId])
+  @@index([photoId])
   @@map("files")
 }
 
