@@ -1,11 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import * as argon2 from 'argon2';
-import { Prisma } from '@prisma/client';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { hash } from 'argon2';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { returnUserObject } from './return-user.object';
 import { returnMoviesObject } from '../movie/return-movies.object';
 

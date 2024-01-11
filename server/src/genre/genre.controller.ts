@@ -1,27 +1,29 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  HttpCode,
-  HttpStatus,
+  Get,
+  Param,
   ParseIntPipe,
+  Post,
   Put,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { GenreService } from './genre.service';
 import { CreateGenreDto } from './dto/create-genre.dto';
-import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
+import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
+import { HttpCacheInterceptor } from '../common/interceptors/httpCache.interceptor';
+import { CacheMovieKeys } from '../movie/constants';
+import { CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('genres')
 export class GenreController {
   constructor(private readonly genreService: GenreService) {}
-
   @Get()
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey('GET_ALL_GENRES')
   async getAll(@Query('searchTerm') searchTerm?: string) {
     return this.genreService.getAll(searchTerm);
   }

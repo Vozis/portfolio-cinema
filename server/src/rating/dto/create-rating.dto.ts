@@ -1,4 +1,4 @@
-import { IsNumber, isNumber, IsString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateRatingDto {
   @IsNumber()

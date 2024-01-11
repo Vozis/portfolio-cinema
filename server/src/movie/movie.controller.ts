@@ -8,15 +8,21 @@ import {
   Post,
   Put,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
+import { CacheKey } from '@nestjs/cache-manager';
+import { CacheMovieKeys } from './constants';
+import { HttpCacheInterceptor } from '../common/interceptors/httpCache.interceptor';
 
 @Controller('movies')
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey(CacheMovieKeys.GET_ALL_MOVIES)
   @Get()
   async getAll(@Query('searchTerm') searchTerm?: string) {
     return this.movieService.getAll(searchTerm);

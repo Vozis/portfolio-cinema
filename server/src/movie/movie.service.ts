@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,16 +9,28 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { PrismaService } from '../prisma.service';
 import { Prisma } from '@prisma/client';
-import { returnActorObject } from '../actor/return-actor.object';
 import { MovieSelect, returnMoviesObject } from './return-movies.object';
 import { ActorService } from '../actor/actor.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { CacheMovieKeys } from './constants';
 
 @Injectable()
 export class MovieService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly actorService: ActorService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
+
+  async clearCache() {
+    const keys: string[] = await this.cacheManager.store.keys();
+    keys.forEach(key => {
+      if (key.startsWith(CacheMovieKeys.GET_ALL_MOVIES)) {
+        this.cacheManager.del(key);
+      }
+    });
+  }
 
   async getAll(searchTerm?: string) {
     const prismaSearchFilter: Prisma.MovieWhereInput = searchTerm
@@ -160,7 +173,7 @@ export class MovieService {
         averageRating: 4,
       },
     });
-
+    await this.clearCache();
     return movie.id;
   }
 
@@ -253,6 +266,7 @@ export class MovieService {
     });
 
     await this.actorService.updateCountMovies();
+    await this.clearCache();
 
     return this.prisma.movie.findMany({
       select: returnMoviesObject,
@@ -273,7 +287,7 @@ export class MovieService {
 
   async delete(id: number) {
     const movie = await this.getById(id);
-
+    await this.clearCache();
     return this.prisma.movie.delete({
       where: { id },
     });

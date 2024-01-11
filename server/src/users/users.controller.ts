@@ -6,15 +6,10 @@ import {
   Param,
   ParseIntPipe,
   Put,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 import { Auth } from '../auth/decorators/auth.decorator';
-import { Roles } from '../auth/roles/roles.decorator';
-import { Role } from '@prisma/client';
-import { RolesGuard } from '../auth/guards/roles.guard';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { User } from '../auth/decorators/user.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 

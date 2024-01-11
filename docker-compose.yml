@@ -1,6 +1,32 @@
 version: '3.9'
 
 services:
+  redis:
+    image: 'redis:alpine'
+    container_name: 'redis'
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - cinema-network
+      - net
+    volumes:
+      - cinema-redis-data:/data
+
+  redis-commander:
+    container_name: 'redis-commander'
+    image: 'ghcr.io/joeferner/redis-commander:latest'
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '8081:8081'
+    restart: always
+    networks:
+      - cinema-network
+      - net
+    depends_on:
+      - redis
+
   api:
     container_name: cinema-api_app
     build:
@@ -26,8 +52,6 @@ services:
     networks:
       - cinema-network
       - net
-#    extra_hosts:
-#      - host.docker.internal:host-gateway
 
   web:
     container_name: cinema-web_app
@@ -71,6 +95,7 @@ volumes:
   cinema-server:
   cinema-web:
   uploaded-files:
+  redis-data:
   cinema-web-node-modules: null
   cinema-server-node-modules: null
 

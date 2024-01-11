@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateGenreDto } from './dto/create-genre.dto';
-import { UpdateGenreDto } from './dto/update-genre.dto';
 import { PrismaService } from '../prisma.service';
 import { Genre, Prisma } from '@prisma/client';
 import { ICollection } from './collection.interface';

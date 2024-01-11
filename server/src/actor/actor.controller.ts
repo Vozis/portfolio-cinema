@@ -1,18 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
   ParseIntPipe,
+  Post,
   Put,
   Query,
 } from '@nestjs/common';
 import { ActorService } from './actor.service';
 import { CreateActorDto } from './dto/create-actor.dto';
-import { UpdateActorDto } from './dto/update-actor.dto';
 import { Auth } from '../auth/decorators/auth.decorator';
 
 @Controller('actors')

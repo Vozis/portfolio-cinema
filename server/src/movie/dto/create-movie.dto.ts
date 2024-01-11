@@ -1,6 +1,4 @@
-import { Actor, Genre, Prisma } from '@prisma/client';
 import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
-import { Transform, Type } from 'class-transformer';
 
 export class CreateMovieDto {
   @IsOptional()

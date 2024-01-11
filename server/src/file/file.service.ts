@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IFileResponse } from './file.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { path } from 'app-root-path';
 import { ensureDir, writeFile } from 'fs-extra';
-import { File } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { returnFileObject, returnFullFileObject } from './return-file.object';
 

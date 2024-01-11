@@ -1,7 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { returnFileObject } from '../file/return-file.object';
 import { returnGenreObject } from '../genre/return-genre.object';
-import { returnRatingObject } from '../rating/return-rating.object';
 import { returnActorObject } from '../actor/return-actor.object';
 
 export const returnMoviesObject: Prisma.MovieSelect = {

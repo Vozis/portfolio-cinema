@@ -4,15 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateActorDto } from './dto/create-actor.dto';
-import { UpdateActorDto } from './dto/update-actor.dto';
 import { PrismaService } from '../prisma.service';
 import { Prisma } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import {
   ActorSelect,
   returnActorObject,
-  returnFullActorObject
-} from "./return-actor.object";
+  returnFullActorObject,
+} from './return-actor.object';
 import { FileService } from '../file/file.service';
 
 @Injectable()

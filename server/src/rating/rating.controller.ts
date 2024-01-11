@@ -1,22 +1,16 @@
 import {
+  Body,
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
-  Delete,
-  Query,
   ParseIntPipe,
-  Put,
+  Post,
 } from '@nestjs/common';
 import { RatingService } from './rating.service';
 
 import { Auth } from '../auth/decorators/auth.decorator';
 import { User } from '../auth/decorators/user.decorator';
 import { CreateRatingDto } from './dto/create-rating.dto';
-
-import { UpdateRatingDto } from './dto/update-rating.dto';
 
 @Controller('ratings')
 export class RatingController {

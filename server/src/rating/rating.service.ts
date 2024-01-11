@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRatingDto } from './dto/create-rating.dto';
-import { UpdateRatingDto } from './dto/update-rating.dto';
 import { PrismaService } from '../prisma.service';
-import { Rating, User } from '@prisma/client';
 import { MovieService } from '../movie/movie.service';
 
 @Injectable()
