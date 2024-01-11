@@ -95,7 +95,7 @@ volumes:
   cinema-server:
   cinema-web:
   uploaded-files:
-  redis-data:
+  cinema-redis-data:
   cinema-web-node-modules: null
   cinema-server-node-modules: null
 
