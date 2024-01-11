@@ -11,7 +11,7 @@ services:
       - cinema-network
       - net
     volumes:
-      - cinema-redis-data:usr/src/data
+      - cinema-redis-data:/usr/src/data
 
   redis-commander:
     container_name: 'redis-commander'
