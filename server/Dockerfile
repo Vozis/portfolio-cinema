@@ -14,7 +14,7 @@ ENV NODE_ENV development
 ENV POSTGRES_PORT 5432
 ENV POSTGRES_HOST postgres
 
-RUN npm ci
+RUN npm ci --maxsockets 1
 COPY --chown=node:node . .
 RUN npm run prisma:generate
 

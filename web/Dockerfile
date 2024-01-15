@@ -10,7 +10,7 @@ COPY package*.json ./
 
 ENV NODE_ENV development
 
-RUN npm ci
+RUN npm ci --maxsockets 1
 COPY . .
 ################################
 # Build stage
