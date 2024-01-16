@@ -17,7 +17,8 @@ import { path } from 'app-root-path';
 import { ActorModule } from './actor/actor.module';
 import { RatingModule } from './rating/rating.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-yet';
+import { redisStore } from 'cache-manager-ioredis-yet';
+// import { redisStore } from 'cache-manager-redis-yet';
 // import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
@@ -25,24 +26,14 @@ import { redisStore } from 'cache-manager-redis-yet';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // CacheModule.register({
-    //   isGlobal: true,
-    //   ttl: 10,
-    //   // store: redisStore,
-    //   // url: 'redis://localhost:6379',
-    //   // host: 'localhost',
-    //   // port: 6379,
-    // }),
     CacheModule.registerAsync({
       isGlobal: true,
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         store: await redisStore({
-          socket: {
-            host: configService.get('REDIS_HOST'),
-            port: configService.get('REDIS_PORT'),
-          },
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
           username: configService.get('REDIS_USERNAME'),
           password: configService.get('REDIS_PASSWORD'),
         }),

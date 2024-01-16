@@ -1,11 +1,11 @@
 version: '3.9'
 
 services:
-  redis:
+  cinema-redis:
     image: 'redis:alpine'
-    container_name: 'cinema-redis'
+    container_name: cinema-redis
     restart: always
-    command: redis-server --requirepass Qjd#R7bBnWH7
+    command: ["redis-server", "/etc/redis/redis.conf"]
     ports:
       - '6379:6379'
     networks:
@@ -13,12 +13,13 @@ services:
       - net
     volumes:
       - cinema-redis-data:/usr/src/data
+      - ./redis.conf:/etc/redis/redis.conf
 
-  redis-commander:
-    container_name: 'redis-commander'
+  cinema-redis-commander:
+    container_name: 'cinema-redis-commander'
     image: 'ghcr.io/joeferner/redis-commander:latest'
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=cinema-redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=Qjd#R7bBnWH7
       - HTTP_USER=root
@@ -30,7 +31,7 @@ services:
       - cinema-network
       - net
     depends_on:
-      - redis
+      - cinema-redis
 
   api:
     container_name: cinema-api_app
@@ -56,6 +57,8 @@ services:
     networks:
       - cinema-network
       - net
+    depends_on:
+      - cinema-redis
 
   web:
     container_name: cinema-web_app
